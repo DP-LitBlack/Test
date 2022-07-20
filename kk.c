@@ -3,7 +3,7 @@
 #include <signal.h>
 #include <stdio.h>
 
-int main()
+int kk()
 {
     pid_t childPID = fork();
 

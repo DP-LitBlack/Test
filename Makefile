@@ -1,16 +1,13 @@
-# build an executable named test from test.c
-all: test main signal_generator
+CC       = gcc 
+CFLAGS   = -Wall 
+LDFLAGS  = -lpthread
+OBJFILES = driver.o signal_generator.o data_processor.o
+TARGET   = test 
 
-test: test.c
-	gcc -g -Wall -c test.c -lpthread
+all: $(TARGET) 
 
-main: main.c
-	gcc -g -Wall -c main.c
+$(TARGET): $(OBJFILES) 
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJFILES) $(LDFLAGS) 
 
-signal_generator: signal_generator.c
-	gcc -g -Wall -c signal_generator.c
-
-	gcc -o main test.o signal_generator.o -lpthread
-
-clean: 
-	$(RM) test main signal_generator
+clean:
+	rm -f $(OBJFILES) $(TARGET) *~
