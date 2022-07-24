@@ -4,13 +4,19 @@
 #include <string.h>
 #include <unistd.h>
 #include <time.h>
+#include <netinet/in.h> 
 
 #include "signal_generator.h"
 #include "data_processor.h"
+#include "udp_server.h"
   
 pthread_t tid[2];
 int counter;
 pthread_mutex_t lock;
+
+int sockfd;
+int len;
+struct sockaddr_in cliaddr;
   
 // void* trythis(void* arg)
 // {
@@ -30,7 +36,7 @@ pthread_mutex_t lock;
 //     return NULL;
 // }
 
-void *thread_Interrupt(void* arg) {
+void *thread_Visualizer(void* arg) {
     int freq = 2;
     int trigger = 1000 / freq;
     
@@ -45,22 +51,53 @@ void *thread_Interrupt(void* arg) {
             clock_t difference = clock() - start;
             msec = difference * 1000 / CLOCKS_PER_SEC;
         }
-        interrupt_Handler(signal_Simulator(fp, line));
+        interrupt_Handler(get_Simulated_Data(fp, line));
         // printf("Time taken %d seconds %d milliseconds \n",msec/1000, msec%1000);
         msec = 0;
     }
     fclose(fp);
     if (line)
         free(line);
-    
-    
+    return NULL;
 }
-  
+
+void *thread_Interrupt(void* arg) {
+    int freq = 10;
+    int trigger = 1000 / freq;
+    
+    FILE *fp;
+    fp = fopen("sensor_data.txt", "r");
+    char *line = NULL;
+
+    while (1)
+    {
+        int msec = 0;
+        clock_t start = clock();
+        while ( msec < trigger ) {
+            clock_t difference = clock() - start;
+            msec = difference * 1000 / CLOCKS_PER_SEC;
+        }
+        char *data = get_Simulated_Data(fp, line);
+        if(data == NULL) break;
+        interrupt_Handler(data);
+        // printf("Time taken %d seconds %d milliseconds \n",msec/1000, msec%1000);
+        send_UDP(data);
+        msec = 0;
+    }
+    fclose(fp);
+    if (line)
+        free(line);
+    return NULL;
+}
+
 int main(void)
 {
     int i = 0;
     int error;
-  
+    
+    // init_UDP_Server(&sockfd, &len, &cliaddr);
+    init_UDP();
+
     if (pthread_mutex_init(&lock, NULL) != 0) {
         printf("\n mutex init has failed\n");
         return 1;

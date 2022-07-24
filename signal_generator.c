@@ -10,7 +10,7 @@
  * @return A line from the file, NULL for empty lines
  * @pre The buffer size should be larger than the length of the longest data
  */
-char *signal_Simulator(FILE *fp, char *line) {
+char *get_Simulated_Data(FILE *fp, char *line) {
     size_t len = 0;
     ssize_t read;
     

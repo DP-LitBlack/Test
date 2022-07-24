@@ -1,7 +1,7 @@
 CC       = gcc 
 CFLAGS   = -Wall 
 LDFLAGS  = -lpthread
-OBJFILES = driver.o signal_generator.o data_processor.o
+OBJFILES = driver.o signal_generator.o data_processor.o udp_server.o
 TARGET   = test 
 
 all: $(TARGET) 
