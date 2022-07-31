@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-
 #include "signal_generator.h"
 
 /**
@@ -10,7 +7,7 @@
  * @return A line from the file, NULL for empty lines
  * @pre The buffer size should be larger than the length of the longest data
  */
-char *get_Simulated_Data(FILE *fp, char *line) {
+char *get_simulated_data(FILE *fp, char *line) {
     size_t len = 0;
     ssize_t read;
     

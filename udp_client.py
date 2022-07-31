@@ -27,14 +27,13 @@ def animate(i, xs, ys):
         UDPClientSocket.settimeout(2)
         msgFromServer = UDPClientSocket.recvfrom(bufferSize)
         msg = "Message from Server {}".format(msgFromServer[0])
-        print(int(msgFromServer[0]))
+        print(msgFromServer[0])
         ys.append(int(msgFromServer[0]))
         xs.append(dt.datetime.now().strftime('%H:%M:%S.%f'))
 
     except socket.timeout:
         # UDPClientSocket.sendto(bytesToSend, serverAddressPort)
         return
-
 
     # Limit x and y lists to 20 items
     xs = xs[-20:]

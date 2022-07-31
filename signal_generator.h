@@ -1,6 +1,9 @@
 #ifndef SIGNAL_GENERATOR_H
 #define SIGNAL_GENERATOR_H
 
-char *get_Simulated_Data(FILE *fp, char *line);
+#include <stdio.h>
+#include <stdlib.h>
+
+char *get_simulated_data(FILE *fp, char *line);
 
 #endif

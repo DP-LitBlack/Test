@@ -1,6 +1,11 @@
 #ifndef DATA_PROCESSOR_H
 #define DATA_PROCESSOR_H
 
-void *interrupt_Handler(char *data);
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "data_logging.h"
+
+void interrupt_handler(char *data);
 
 #endif
