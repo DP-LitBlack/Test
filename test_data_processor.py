@@ -17,8 +17,13 @@ class TestStringMethods(unittest.TestCase):
         self.rawDataList = self.rawData.split("\n")
         self.rawDataList.pop()
 
-        for i in range(len(self.rawDataList)): 
-            self.assertEqual(int(self.testDataList[i]), int(int(self.rawDataList[i]) / 2))
+        j = 0
+
+        for i in range(len(self.testDataList)): 
+            if self.testDataList[i][0] == "p":
+                print(j)
+                self.assertEqual(int(self.testDataList[i][1:]), int(int(self.rawDataList[j]) / 2))
+                j = j + 1
         
         self.testFile.close()
         self.rawFile.close()

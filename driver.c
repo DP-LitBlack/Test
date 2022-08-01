@@ -66,7 +66,7 @@ void *thread_init_udp(void* arg) {
 void *thread_interrupt(void* arg) {
     sem_wait(&shared.init_finished);
 
-    int freq = 10;
+    int freq = 20;
     int trigger = 1000 / freq;
 
     FILE *fp;
@@ -84,9 +84,29 @@ void *thread_interrupt(void* arg) {
         }
         char *data = get_simulated_data(fp, line);
         if(data == NULL) break;
+        
+        char raw_data_labeled[strlen(data) + 1];
+        raw_data_labeled[0] = 'r';
+        raw_data_labeled[1] = '\0';
+        strcat(raw_data_labeled, data);
         interrupt_handler(data);
-        // printf("Time taken %d seconds %d milliseconds \n",msec/1000, msec%1000);
-        send_udp(data);
+        // // printf("Time taken %d seconds %d milliseconds \n",msec/1000, msec%1000);
+        char processed_data_labeled[strlen(data) + 1];
+        processed_data_labeled[0] = 'p';
+        processed_data_labeled[1] = '\0';
+        strcat(processed_data_labeled, data);
+        
+        send_udp(raw_data_labeled);
+        send_udp(processed_data_labeled);
+        
+        // send_udp(data);
+        /**
+         * CAUTION: You should not modify the codes below!
+         * The function below logs the processed data for testing.
+         */
+        log_data(raw_data_labeled);
+        log_data(processed_data_labeled);
+        
         msec = 0;
     }
     fclose(fp);

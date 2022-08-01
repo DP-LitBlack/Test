@@ -11,7 +11,7 @@ bufferSize          = 1024
 
 # Create figure for plotting
 fig = plt.figure()
-ax = fig.add_subplot(1, 1, 1)
+ax = fig.add_subplot(2, 1, 1)
 plt.subplots_adjust(bottom=0.5)
 xs = []
 ys = []

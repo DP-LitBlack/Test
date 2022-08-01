@@ -19,9 +19,5 @@ void interrupt_handler(char *data) {
 
     printf("%s", data);
 
-    /**
-     * CAUTION: You should not modify the codes below!
-     * The function below logs the processed data for testing.
-     */
-    log_data(data);
+
 }
