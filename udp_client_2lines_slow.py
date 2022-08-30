@@ -13,7 +13,8 @@ bufferSize          = 1024
 fig = plt.figure()
 ax = fig.add_subplot(2, 1, 1)
 
-
+plt.title('TMP102 Temperature over Time')
+plt.ylabel('Temperature (deg C)')
 
 # ani = animation
 paused = False
@@ -44,14 +45,14 @@ def animate(i):
 
         # print(int(msg[1:]))
         if msg[0] == "r":
-            ys1.append(int(msg[1:]))
+            ys1.append(float(msg[1:]))
             # xs1.append(dt.datetime.now().strftime('%H:%M:%S.%f'))
             xs1.append(num_i)
             num_i = num_i + 1
             xs1 = xs1[-xlimit:]
             ys1 = ys1[-xlimit:]
         elif msg[0] == "p":
-            ys2.append(int(msg[1:]))
+            ys2.append(float(msg[1:]))
             # xs2.append(dt.datetime.now().strftime('%H:%M:%S.%f'))
             xs2.append(num_j)
             num_j = num_j + 1
@@ -97,7 +98,3 @@ ani = animation.FuncAnimation(fig, animate, frames=100,
                                 interval=xlimit)
 
 plt.show()
-
-
-
-

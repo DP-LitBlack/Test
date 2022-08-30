@@ -66,7 +66,7 @@ void *thread_init_udp(void* arg) {
 void *thread_interrupt(void* arg) {
     sem_wait(&shared.init_finished);
 
-    int freq = 20;
+    int freq = 50;
     int trigger = 1000 / freq;
 
     FILE *fp;

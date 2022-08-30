@@ -6,9 +6,8 @@
 
 static int sockfd; 
 static char buffer[MAXLINE]; 
-static char *hello = "Hello from server"; 
 static struct sockaddr_in servaddr, cliaddr; 
-static int len;
+static unsigned int len;
 
 // Driver code 
 int init_udp() { 
@@ -36,10 +35,12 @@ int init_udp() {
     int n; 
     
     len = sizeof(cliaddr);  //len is value/result 
-    
+
     n = recvfrom(sockfd, (char *)buffer, MAXLINE,  
                 MSG_WAITALL, (struct sockaddr *) &cliaddr, 
                 &len); 
+
+
     buffer[n] = '\0'; 
     printf("Client : %s\n", buffer); 
     return 1;

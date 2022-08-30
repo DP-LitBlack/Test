@@ -22,7 +22,7 @@ class TestStringMethods(unittest.TestCase):
         for i in range(len(self.testDataList)): 
             if self.testDataList[i][0] == "p":
                 print(j)
-                self.assertEqual(int(self.testDataList[i][1:]), int(int(self.rawDataList[j]) / 2))
+                self.assertEqual(float(self.testDataList[i][1:]), float(float(self.rawDataList[j]) / 2.0))
                 j = j + 1
         
         self.testFile.close()
